@@ -16,12 +16,14 @@ import {
   NativeBaseProvider,
 } from 'native-base';
 import {useNavigation, useFocusEffect} from '@react-navigation/native';
+
+import Icon from 'react-native-vector-icons/Ionicons';
 import {StyleSheet} from 'react-native';
+
 import {QueryClient, QueryClientProvider, useQuery} from 'react-query';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import HTMLView from 'react-native-htmlview';
-import {FlashList} from '@shopify/flash-list';
 
 const Example = () => {
   const navigation = useNavigation();
@@ -65,7 +67,7 @@ const Example = () => {
       return res.data;
     },
   );
-  //console.log('DATA', data);
+  console.log('DATA', data);
   const styles = StyleSheet.create({
     a: {
       fontWeight: '300',
@@ -81,27 +83,16 @@ const Example = () => {
 
   return (
     <Box
-      maxW="xl"
-      rounded="lg"
-      overflow="hidden"
-      borderColor="coolGray.200"
-      borderWidth="1"
-      _dark={{
-        borderColor: 'coolGray.600',
-        backgroundColor: 'gray.700',
-      }}
-      _web={{
-        shadow: 2,
-        borderWidth: 0,
-      }}
-      _light={{
-        backgroundColor: 'gray.50',
-      }}>
+      _light={{bg: 'coolGray.50'}}
+      _dark={{bg: 'coolGray.900'}}
+      minHeight="sm"
+      justifyContent="center"
+      px={4}>
       <Heading size="lg">Bitacoras</Heading>
       <ToggleDarkMode />
       <Button onPress={() => setShowModal(true)}>Button</Button>
 
-      <FlashList
+      <FlatList
         data={data}
         renderItem={({item}) => (
           <VStack>
@@ -169,7 +160,6 @@ const Example = () => {
             />
           </VStack>
         )}
-        estimatedItemSize={20}
         keyExtractor={item => item.id}
       />
       <Modal
@@ -218,7 +208,7 @@ const Example = () => {
 export default () => {
   return (
     <NativeBaseProvider>
-      <Center flex={1} px="10">
+      <Center flex={1} px="3">
         <Example />
       </Center>
     </NativeBaseProvider>
